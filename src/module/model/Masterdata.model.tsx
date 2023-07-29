@@ -5,7 +5,7 @@ type IdEntity = {
 
 export type Food = IdEntity & {
     name: string,
-    estimateTime: number;
+    estimateTime?: number;
     bannerUrl: string;
     totalMaxPrice?: number;
     totalMinPrice?: number;
