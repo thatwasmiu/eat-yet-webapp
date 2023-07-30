@@ -3,7 +3,6 @@ import { Content } from "antd/es/layout/layout";
 import SideMenuBar from "./SideMenuBar.component";
 import TopNavBar from "./TopNavbar.component";
 
-
 const LayoutPage = ({Page} : {Page? : JSX.Element}) => {
     const {
         token: { colorBgContainer },

@@ -4,7 +4,7 @@ import FoodUpsert from "./menu/page/FoodUpsert.page";
 import FoodView from "./menu/page/FoodView.page";
 
 
-const MenuRouting = () => {
+const MenuRoute = () => {
     return (
         <Routes>
             <Route path="menu" element={<FoodMenuPage />} />
@@ -14,4 +14,4 @@ const MenuRouting = () => {
     )
 }
 
-export default MenuRouting;
+export default MenuRoute;

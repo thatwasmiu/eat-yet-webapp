@@ -2,7 +2,7 @@ import { message, UploadProps, UploadFile, Upload, Card } from "antd";
 import { RcFile, UploadChangeParam } from "antd/es/upload";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState } from "react";
-import { GetDataCallBackProps } from "../../../interface/CallBackProps.interface";
+import { GetDataCallBackProps } from "../../../../interface/CallBackProps.interface";
 
 const ImageSelect = () => {
     const [loading, setLoading] = useState(false);
