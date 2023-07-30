@@ -2,20 +2,36 @@ import ImageSelect from "../component/ImageSelect.component";
 import FoodDetailInput from "../component/FoodDetailInput.component";
 import { Button, Card, Col, Row } from "antd";
 import { Food, Step } from "../../model/Masterdata.model";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StepEdit from "../component/StepEdit.component";
+import StepAdd from "../component/StepAdd.component";
 
-const FoodUpsert : React.FC = () => {
-  const [isEditingStep, setIsEditingStep] = useState<boolean>(false);
+interface FoodUpsertProps {
+  id?: number;
+}
+
+const foodTemp: Food = { name: "", descr: "", bannerUrl: "", steps: [], };
+foodTemp.steps.push({id: 1, name: "test", timeEst: 1, descr: "sss"});
+foodTemp.steps.push({id: 2, name: "test2", timeEst: 1, descr: "sss3"})
+
+const FoodUpsert : React.FC = ({id} : FoodUpsertProps) => {
+  const [food, setFood] = useState<Food>(foodTemp);
+  if (id) fetch("").then((res) => res.json()).then((data) => setFood(data));
+  const steps = food.steps;
+  const [isAddingStep, setIsAddingStep] = useState<boolean>(false);
   const getFoodStep = (step : Step) =>{food.steps.push(step); console.log(food)};
-  const food : Food = {
-    name: "",
-    descr: "",
-    bannerUrl: "",
-    steps: [],
+  const onAdding = () => {
+    setIsAddingStep(true);
   }
-  food.steps.push({id: 1, name: "test", timeEst: 0, descr: "sss"})
-  
+
+  const onCancle = () => {
+    
+  }
+
+  const onClose = () => {
+    setIsAddingStep(false);
+  }
+console.log(steps); 
   return (
     <>
       <Card bordered>
@@ -31,14 +47,15 @@ const FoodUpsert : React.FC = () => {
     <Card>
       <Row >
         <Col className="w-full">          
-          {food.steps.map(s => (<StepEdit key={1} getStepCallBack={getFoodStep} onClose={() => setIsEditingStep(false)} stepInput={s}/>))}
+          {steps.map(s => (<StepEdit key={s.id || 0} getStepCallBack={getFoodStep} step={{...s}}/>))}
         </Col>
       </Row>
       <Row>
         <Col className="w-full">
-          {isEditingStep ? 
-            <StepEdit getStepCallBack={getFoodStep} onClose={() => setIsEditingStep(false)}/> : 
-            <AddStepButton onClick={() => {setIsEditingStep(true)}}/>}
+          {!isAddingStep ? 
+            <AddStepButton onClick={onAdding}/> : 
+            <StepAdd getStepCallBack={getFoodStep} onClose={onClose}/>
+            }
           </Col>
       </Row>
     </Card>
@@ -47,6 +64,7 @@ const FoodUpsert : React.FC = () => {
   )
         
 }
+
 export default FoodUpsert;
 
 const AddStepButton = ({onClick} : {onClick : () => void}) => (
