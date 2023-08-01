@@ -2,9 +2,13 @@ import { message, UploadProps, UploadFile, Upload, Card } from "antd";
 import { RcFile, UploadChangeParam } from "antd/es/upload";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState } from "react";
-import { GetDataCallBackProps } from "../../../../interface/CallBackProps.interface";
+import AttachmentService from "../module/service/Attachment.service";
 
-const ImageSelect = () => {
+interface ImageSelectProps {
+    getUrlCallBack: (url : string) => void
+}
+
+const ImageSelect = ({} : ImageSelectProps) => {
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState<string>();
     const uploadButton = createUploadButton(loading);
@@ -30,7 +34,7 @@ const ImageSelect = () => {
             className="avatar-uploader"
             showUploadList={false}
             beforeUpload={beforeUpload}
-            action={"http://localhost:8083/api/upload"}
+            action={AttachmentService.getUrl}
             onChange={handleChange}
             >
             {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}

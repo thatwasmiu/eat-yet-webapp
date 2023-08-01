@@ -31,6 +31,7 @@ const StepInput = ({editable = false, editedStep} : StepInputProps) => {
                 <Input disabled={editable} type="number" id="time-est" placeholder="Time Estimation" allowClear onChange={handleChange} defaultValue={editedStep.timeEst}/>
             </Col>
         </Row>
+        {editedStep.ingredientList?.map((i, index) => <Row key={index}><Col><p>{i.name}</p></Col></Row>)}
         <Row>
             <TextArea disabled={editable} id="descr" placeholder="General Description" allowClear onChange={handleChange} defaultValue={editedStep.descr}/> 
         </Row>

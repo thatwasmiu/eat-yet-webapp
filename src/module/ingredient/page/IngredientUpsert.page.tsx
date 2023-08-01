@@ -1,6 +1,0 @@
-
-const IngredientUpsert = () => {
-    return (
-        
-    )
-}

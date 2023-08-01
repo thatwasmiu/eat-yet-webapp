@@ -1,7 +1,5 @@
-import { Button, Card, Col, Input, Row } from "antd";
+import { Button, Card } from "antd";
 import { Step } from "../../../model/Masterdata.model";
-import TextArea from "antd/es/input/TextArea";
-import { useState } from "react";
 import StepInput from "./StepInput.componet";
 
 interface StepAddProps {
@@ -14,7 +12,7 @@ const StepAdd = ({getStepCallBack, onClose} : StepAddProps) => {
     const onSave = () => {
         onClose();
         if (mutableStep.name === "" || mutableStep.timeEst === 0 || mutableStep.descr === "") return;
-        getStepCallBack(mutableStep)
+        getStepCallBack(mutableStep);
         mutableStep = {name: "", descr: "", timeEst: 0};
     }
 

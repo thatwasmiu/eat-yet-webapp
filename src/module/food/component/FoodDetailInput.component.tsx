@@ -7,6 +7,7 @@ interface FoodDetailInputProps{
 }
 
 const FoodDetailInput = ({name, descr, getFoodDetailCallBack} : FoodDetailInputProps) => {
+    
     const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const elm = e.target;
         if (elm.id === "food-name") {
@@ -20,10 +21,10 @@ const FoodDetailInput = ({name, descr, getFoodDetailCallBack} : FoodDetailInputP
 
     return (
         <>
-            <Input id="food-name" placeholder="Food Name" allowClear onChange={onChange} />
+            <Input id="food-name" placeholder="Food Name" allowClear onChange={onChange} defaultValue={name}/>
             <br />
             <br />
-            <TextArea id="food-descr" placeholder="General Description" allowClear onChange={onChange} />
+            <TextArea id="food-descr" placeholder="General Description" allowClear onChange={onChange} defaultValue={descr}/>
         </>
     )
 }
