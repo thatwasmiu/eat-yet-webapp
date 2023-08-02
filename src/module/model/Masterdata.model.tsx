@@ -5,28 +5,30 @@ type IdEntity = {
 
 export type Food = IdEntity & {
     name: string,
-    estimateTime: number;
-    bannerUrl: string;
+    estimateTime?: number;
+    bannerUrl: string | undefined;
     totalMaxPrice?: number;
     totalMinPrice?: number;
     descr: string;
     steps: Step[];
     rate?: Rate;
-    places?: FoodMarket[];
+    places?: MarketPlace[];
 }
 
 export type Step = IdEntity & {
     name: string;
-    ingredient?: Ingredient[];
+    ingredientList?: Ingredient[];
     substitutes?: Ingredient[];
-    substituteMap?: IngredientMap[];
-    timeEst: number;
+    substituteList?: IngredientMap[];
+    timeEst: number | undefined;
     descr: string;
 }
 
 export type Ingredient = IdEntity & {
     name: string;
-    price: number;
+    price: number | undefined;
+    descr: string;
+    bannerUrl: string;
     rate?: Rate;
 }
 
@@ -35,13 +37,13 @@ export type IngredientMap = {
     replacementId: number;
 }
 
-type FoodMarket = IdEntity & {
+export type MarketPlace = IdEntity & {
     id?: number;
     name: string;
     rate?: Rate;
 }
 
-type Rate = IdEntity & {
+export type Rate = IdEntity & {
     name: string;
     evaluationPoint: number;
 }

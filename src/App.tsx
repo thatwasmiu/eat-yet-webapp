@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 // import FoodMenuPage from './module/menu/page/menu.page';
-import LayoutPage from './component/LayoutPage.component';
-import MenuRouting from './module/MenuRouting.config';
+import LayoutPage from './component/layout/LayoutPage.component';
+import MenuRoute from './module/food/MenuRoute.config';
+import IngredientRoute from './module/ingredient/IngredientRoute.config';
+import MarketRoute from './module/market/MarketRoute.config';
 
 const App: React.FC = () => {
- 
+  
   return (
     <Routes>
-      <Route path="/*" element={<LayoutPage Page={<MenuRouting />}/>} /> 
-      {/* <p>Tessssss Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur praesentium, ab repellat mollitia nihil aspernatur dolorem aliquid magnam earum saepe dolor iusto. Similique numquam dicta voluptas quasi error nam reiciendis!  </p> */}
-        {/* <Route path="" element={<Home />} /> */}
-        {/* <Route path="menu" element={<FoodMenuPage />} /> */}
-    
-    {/* <Route path="/login" element={<LoginPage />} />
-    <Route path="/register" element={<RegisterPage />} />
-     */}
-  </Routes>
+      <Route path='/' element={<LayoutPage />} /> 
+      <Route path="/foods/*" element={<LayoutPage Page={<MenuRoute />}/>} /> 
+      <Route path="/ingredients/*" element={<LayoutPage Page={<IngredientRoute />} />} />
+      <Route path="/markets/*" element={<LayoutPage Page={<MarketRoute />} />} />
+    {/* <Route path="/login" element={<LoginPage />} /> */}
+    {/* <Route path="/register" element={<RegisterPage />} /> */} 
+    </Routes>
   );
 };
 
