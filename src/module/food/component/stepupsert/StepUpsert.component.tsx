@@ -28,12 +28,15 @@ const StepUpsert = ({steps, getStepsCallBack} : StepUpsertProps) => {
         setStepState([...stepState, step]);
     }
 
+    const deleteStep = (step : Step) => {
+        setStepState(steps => steps.filter(s => s.id !== step.id))
+    }
     return (
         <Card>
             <Row >
                 <Col className="w-full">          
                 {stepState.map((s, i : number) =>
-                    (<StepEdit key={i} getStepCallBack={getEditedStep} mutableStep={{...s}}  index={i}/>)
+                    (<StepEdit key={i} getStepCallBack={getEditedStep} stepInfo={{...s}}  index={i} handleDelete={deleteStep}/>)
                 )}
                 </Col>
             </Row>

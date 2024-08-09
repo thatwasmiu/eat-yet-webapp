@@ -10,7 +10,7 @@ const IngredientRoute = () => {
         <Routes>
             <Route path="" element={<IngredientList />} />
             <Route path="new" element={<IngredientCreate />} />
-            <Route path=":id/detail" element={<IngredientEdit />} />
+            <Route path=":id/edit" element={<IngredientEdit />} />
             <Route path=":id" element={<IngredientView />} />
         </Routes>
     )

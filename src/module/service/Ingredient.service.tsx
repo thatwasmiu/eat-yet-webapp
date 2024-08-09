@@ -1,6 +1,10 @@
 import axios from "axios";
 import { Ingredient } from "../model/Masterdata.model";
 
+interface UpdateProps{
+    ingredient: Ingredient,
+    id: string
+}
 const baseUrl = "http://localhost:8083/api/ingredients";
 
 const IngredientService = {
@@ -14,10 +18,20 @@ const IngredientService = {
             .then(res => res.data)
     ),
 
-    upsert: (ingredient : Ingredient) =>  (
+    create: (ingredient : Ingredient) =>  (
         axios.post<Ingredient>(baseUrl, ingredient)
             .then(res => res.data)
+    ),
+
+    update: ({ingredient, id} : UpdateProps) => (
+        axios.put<Ingredient>(`${baseUrl}/${id}`, ingredient)
+            .then(res => res.data)
+    ),
+
+    delete: (id : string | number | undefined) => (
+        axios.delete(`${baseUrl}/${id}`)
     )
+
 }
 
 export default IngredientService;

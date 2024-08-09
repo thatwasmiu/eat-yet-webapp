@@ -1,28 +1,43 @@
-import { Card, Row, Col } from "antd";
-import { Link } from "react-router-dom";
-import { Food } from "../../model/Masterdata.model";
+import { Card, Row, Col, Button } from "antd";
+import { Link, useParams } from "react-router-dom";
 import NotFoundPage from "../../../component/NotFoundPage.component";
-
-const fds : Food= {id: 1, name: "egg fried rice", bannerUrl: "sjfjs", descr: "good", estimateTime: 5.0, steps: []} 
+import { useQuery } from "react-query";
+import FoodService from "../../service/Food.service";
+import FetchingDisplay from "../../../component/FetchingDisplay.component";
+import ContentLayout from "../../../component/layout/ContentLayout.component";
 
 const FoodView = () => {
-  const f = fds;
-
+  const { id } = useParams();
+    if (!id) return <NotFoundPage />
+  const foodQuery = useQuery(["food", id], () => FoodService.getOneById(id));
+  if (foodQuery.data === undefined) return <FetchingDisplay {...foodQuery}/>;
+  const food = foodQuery.data;
+  const breadcrumbItems = [
+    {
+        title: <Link to={"/foods"}>Foods</Link>
+    },
+    {
+        title: food.name
+    },
+]
   return (
-    f &&
-      <Card>
-          <Row justify="space-between">
-              <Col className="w-1/2">
-                  <img src={f.bannerUrl} alt={f.name}/>
-              </Col>
-              <Col className="w-1/2">
-                  <span><Link to={`./${f.id}`}>{f.name}</Link></span>{" "}<span>Estimate Time: {f.estimateTime}</span>
-                  <br/>
-                  <p>{f.descr}</p>
-              </Col>
-          </Row>
-      </Card>
-    || <NotFoundPage />
+        <ContentLayout
+            items={breadcrumbItems}
+            ContentPage={
+                <Card extra={<Link to={`./edit`}><Button>Edit</Button></Link>}>
+                    <Row justify="space-between">
+                        <Col className="w-1/2">
+                            <img src={food.bannerUrl} alt={food.name}/>
+                        </Col>
+                        <Col className="w-1/2">
+                            <span>{food.name}</span>{" "}<span>Estimate Time: {food.estimateTime}</span>
+                            <br/>
+                            <p>{food.descr}</p>
+                        </Col>
+                    </Row>
+                </Card>
+            }
+        />
   );
 }
 

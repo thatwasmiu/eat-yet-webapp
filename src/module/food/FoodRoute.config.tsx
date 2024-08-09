@@ -4,7 +4,8 @@ import FoodView from "./page/FoodView.page";
 import FoodCreate from "./page/FoodCreate.page";
 import FoodEdit from "./page/FoodEdit.page";
 
-const MenuRoute = () => {
+
+const FoodRoute = () => {
     return (
         <Routes>
             <Route path="/" element={<FoodPage />} />
@@ -15,4 +16,4 @@ const MenuRoute = () => {
     )
 }
 
-export default MenuRoute;
+export default FoodRoute;

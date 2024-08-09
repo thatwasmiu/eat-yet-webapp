@@ -1,6 +1,9 @@
-import { Row, Col, Input } from "antd";
+import { Row, Col, Input, Button } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { Step } from "../../../model/Masterdata.model";
+import { Ingredient, Step } from "../../../model/Masterdata.model";
+import IngredientSelect from "./IngredientSelect.component";
+import { MinusOutlined } from '@ant-design/icons';
+import { useEffect, useState } from "react";
 
 interface StepInputProps {
     editable?: boolean,
@@ -9,6 +12,13 @@ interface StepInputProps {
 }
 
 const StepInput = ({editable = false, editedStep} : StepInputProps) => { 
+    const [ingredients, setIngredients] = useState<Ingredient[]>(editedStep.stepIngredients || []);
+    useEffect(() => {
+        editedStep.stepIngredients = ingredients;
+    }, [ingredients]);
+    useEffect(() => {
+        setIngredients(editedStep.stepIngredients || []);
+    }, [editedStep]);
     const handleChange = (e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const elm = e.target;
         if (elm.id === "name") {
@@ -21,6 +31,14 @@ const StepInput = ({editable = false, editedStep} : StepInputProps) => {
             editedStep.descr = elm.value;
         }
     }
+    const onSelectIngredient = (ingredient: Ingredient | undefined) => {
+        if (!ingredient) return;
+;       if (!ingredient.id) 
+            setIngredients(ingredients => ingredients.map((i : Ingredient) => i.id === ingredient.id ? ingredient : i));
+        else
+            setIngredients([...ingredients, ingredient]);
+    }
+
     return (
         <>
         <Row className=" mb-2">
@@ -31,7 +49,8 @@ const StepInput = ({editable = false, editedStep} : StepInputProps) => {
                 <Input disabled={editable} type="number" id="time-est" placeholder="Time Estimation" allowClear onChange={handleChange} defaultValue={editedStep.timeEst}/>
             </Col>
         </Row>
-        {editedStep.ingredientList?.map((i, index) => <Row key={index}><Col><p>{i.name}</p></Col></Row>)}
+        {ingredients?.map((i, index) => <Row key={index}><Col><p>+ {i.name}</p></Col> {!editable && <Col><Button icon={<MinusOutlined />} onClick={() => {setIngredients(igts => igts.filter(igt => igt.id !== i.id))}}/></Col>}</Row>)}
+        {!editable && <IngredientSelect onSelect={onSelectIngredient}/>}
         <Row>
             <TextArea disabled={editable} id="descr" placeholder="General Description" allowClear onChange={handleChange} defaultValue={editedStep.descr}/> 
         </Row>

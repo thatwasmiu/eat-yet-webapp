@@ -17,7 +17,7 @@ export type Food = IdEntity & {
 
 export type Step = IdEntity & {
     name: string;
-    ingredientList?: Ingredient[];
+    stepIngredients?: Ingredient[];
     substitutes?: Ingredient[];
     substituteList?: IngredientMap[];
     timeEst: number | undefined;

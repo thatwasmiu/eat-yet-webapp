@@ -1,8 +1,14 @@
+import { Row, Col, Spin } from "antd";
 
 const LoadingScrean = () => {
     return (
         <>
-            <p>Please Standing By</p>
+            <Row>
+                <Col className="w-full">
+                    <Spin tip="Loading" size="large">...
+                    </Spin>
+                </Col>
+            </Row>
         </>
     )
 }

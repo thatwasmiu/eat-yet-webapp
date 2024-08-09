@@ -1,6 +1,10 @@
 import axios from "axios";
 import { MarketPlace } from "../model/Masterdata.model";
 
+interface UpdateProps{
+    market: MarketPlace,
+    id: string
+}
 const baseUrl = "http://localhost:8083/api/market-places"
 
 const MarketPlaceService =  {
@@ -15,8 +19,13 @@ const MarketPlaceService =  {
         .then(res => res.data)
     ),
 
-    upsert: (market : MarketPlace) =>  (
+    create: (market : MarketPlace) =>  (
         axios.post<MarketPlace>(baseUrl, market)
+            .then(res => res.data)
+    ),
+
+    update: ({market, id} : UpdateProps) => (
+        axios.put<MarketPlace>(`${baseUrl}/${id}`, market)
             .then(res => res.data)
     )
     

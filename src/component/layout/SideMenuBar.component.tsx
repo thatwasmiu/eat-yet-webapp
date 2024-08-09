@@ -52,7 +52,15 @@ const SideMenuBar = () => {
 ]
   
   return (
-      <Sider trigger={null} collapsible collapsed={collapsed}
+      <Sider trigger={null} collapsible collapsed={collapsed} breakpoint="lg" style={{
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left: 0,
+        top: "60px",
+        bottom: 0,
+        zIndex: 1,
+      }}
         onMouseEnter={() => collapsed && setCollapse(collapsed => !collapsed)}
         onMouseLeave={() => !collapsed && setCollapse(collapsed => !collapsed)}
       >
